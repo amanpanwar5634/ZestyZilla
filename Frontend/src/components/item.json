@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Classic Cheeseburger",
+    "image": "../../homeimages/cheeseburger.jpg"
+  },
+  {
+    "name": "Caesar Salad",
+    "image": "../../homeimages/salad.jpg"
+  },
+  {
+    "name": "Spaghetti Carbonara",
+    "image": "../../homeimages/spaghetti.jpg"
+  },
+  {
+    "name": "Grilled Chicken Sandwich",
+    "image": "../../homeimages/sandwhich.jpg"
+  },
+  {
+    "name": "Sushi Platter",
+    "image": "../../homeimages/sushi.jpg"
+  },
+  {
+    "name": "Chocolate Lava Cake",
+    "image": "../../homeimages/cake.jpg"
+  },
+  {
+    "name": "Pancakes with Syrup",
+    "image": "../../homeimages/pancake.jpg"
+  },
+  {
+    "name": "Tacos",
+    "image": "../../homeimages/Tacos.jpg"
+  },
+  {
+    "name": "Ice Cream Sundae",
+    "image": "../../homeimages/Ice.jpg"
+  }
+]

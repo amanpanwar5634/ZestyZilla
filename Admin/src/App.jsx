@@ -5,7 +5,7 @@ import List from "./List/List";
 import Orders from "./Orders/Orders";
 import {Toaster} from "react-hot-toast";
 export default function App() {
-  const url="http://localhost:4000";
+  const url="https://zestyzilla-backend.onrender.com";
   return (
     <>
      <Routes>

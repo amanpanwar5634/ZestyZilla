@@ -4,7 +4,7 @@ export const StoreContext=createContext(null);
 import list from "./contextlist.json";
 import axios from "axios";
 export default function StoreContextProvider(props){
-    const url="http://localhost:4000";
+    const url="https://zestyzilla-backend.onrender.com";
     const [token,settoken]=useState("");
 const [cardItems,setcardItems]=useState({});
 //concept of fetching alll food items

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import menuList from "./menuList.json";
+import axios from "axios";
 import CardMenu from "./CardMenu";
+import { useState } from "react";
+import { StoreContext } from "../../context/Context";
 export default function MenuContent(){
+   const {list,setlsit}=useContext(StoreContext);  //the concept of list fecthing n context
     return (
         <>
         <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -18,7 +22,7 @@ export default function MenuContent(){
 
         </div>
         <div className="mt-3 grid grid-cols-1 md:grid-cols-3">
-          {menuList.map((el)=>(<CardMenu key={el._id} item={el}/>))}
+          {list.map((el)=>(<CardMenu key={el._id} item={el}/>))}
         </div>
         </div>
         </>

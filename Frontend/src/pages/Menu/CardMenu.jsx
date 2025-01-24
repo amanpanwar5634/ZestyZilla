@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { StoreContext } from "../../context/Context";
 export default function CardMenu({item}){
    console.log("itemid->",item._id);
-  const { cardItems,addToCard,removeFromCart}=useContext(StoreContext);
+  const { cardItems,addToCard,removeFromCart,url}=useContext(StoreContext);
   console.log("cardItems->",cardItems);
     return (
         <>
@@ -11,7 +11,7 @@ export default function CardMenu({item}){
     <div className="card bg-base-100 w-80 shadow-xl hover:scale-105 duration-300 dark:bg-slate-900 dark:text-white border">
   <figure>
     <img
-      src={item.image}
+      src={url+"/images/"+item.image}
       alt="food" />
   </figure>
   <div className="card-body">

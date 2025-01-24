@@ -4,8 +4,8 @@ import list from "./carList.json";
 import { StoreContext } from "../../context/Context";
 import { Link } from "react-router-dom";
 export default function CartContent(){
+    const {cardItems,removeFromCart,getTotalAmount,list,setlist,url}=useContext(StoreContext);
     console.log("list->",list);
-    const {cardItems,removeFromCart,getTotalAmount}=useContext(StoreContext);
     console.log("cardItems",cardItems);
     return(
         <>
@@ -24,7 +24,7 @@ export default function CartContent(){
         return(
             <>
             
-                <div className="bg-white p-2 text-center m-auto text-xl"><img src={el.image}></img></div>
+                <div className="bg-white p-2 text-center m-auto text-xl"><img src={url+"/images/"+el.image}></img></div>
                 <div className="bg-white p-2 text-center m-auto text-xl">{el.name}</div>
                 <div className="bg-white p-2 text-center m-auto text-xl">${el.price}</div>
                 <div className="bg-white p-2 text-center m-auto text-xl">{cardItems[el._id]}</div>

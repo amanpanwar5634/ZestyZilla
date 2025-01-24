@@ -1,10 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { StoreContext } from "../context/Context";
+import toast from "react-hot-toast";
 export default function Navbar(){
-  const {cardItems,getTotalAmount,TotalItem}=useContext(StoreContext);
+  const {cardItems,getTotalAmount,TotalItem,token,settoken}=useContext(StoreContext);
   let [sticky,setsticky]=useState(false);
+  const navigate=useNavigate();
+  //to logout from the site  but problem with this is when user is Login and we refresh it set to logout automaticallyy for this ->context
+  const Logout=()=>{
+    localStorage.removeItem("token");
+    settoken("");
+    toast.success("Logout Successfull");
+    navigate("/");
+  }
   useEffect(()=>{
    const handleScroll=()=>{
    if(window.scrollY>0){setsticky(true)}
@@ -55,21 +65,7 @@ return(
         <li><a>ContactUs</a></li>
     </ul>
   </div >
-  <div className="hidden md:block">
-  <label className="input input-bordered flex items-center gap-2 ">
-  <input type="text" className="grow outline-none" placeholder="Search" />
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      fillRule="evenodd"
-      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-      clipRule="evenodd" />
-  </svg>
-</label>
-</div>
+   
 <div className="flex-none">
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -102,10 +98,28 @@ return(
       </div>
     </div>
   </div>
-    <a className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer"
+  {/*to switch between login and logout*/}
+  {!token?<div className="flex flex-row items-center"><a className="btn  bg-black text-white rounded-md px-5 py-1 hover:bg-slate-800 cursor-pointer"
    onClick={()=>document.getElementById('my_modal_3').showModal()}   
     >Log In</a>
-    <Login/>
+    <Login/></div>:
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <ul
+        tabIndex={0}
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+         <li><Link to="/order"><a>Place Order</a></Link></li>
+        <li><a onClick={Logout}>Logout</a></li>
+        <li><Link to="/myorder"><a>My Order</a></Link></li>
+      </ul>
+    </div>
+    }
   </div>
   </div>
     </div>

@@ -1,5 +1,9 @@
 import React from "react";
+import { useContext } from "react";
+import { StoreContext } from "../context/Context";
+import { Link } from "react-router-dom";
 export default function Header(){
+  let {token,settoken}=useContext(StoreContext);
     return (
         <>
           <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
@@ -19,7 +23,8 @@ export default function Header(){
                       Enjoy delicious meals delivered to your doorsteps in minutes. Choose from a wide
                       variety of cuisines and get your food hot and fresh.
                     </p>
-                    <button className="btn btn-primary">Order Now</button>
+                    <Link to={token ? "/myorder" : "/signup"}><button className="btn btn-primary">Order Now</button></Link>
+
                   </div>
                 </div>
               </div>

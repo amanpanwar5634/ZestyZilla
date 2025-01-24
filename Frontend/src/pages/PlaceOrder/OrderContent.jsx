@@ -1,22 +1,61 @@
-import React, { useContext } from "react";
+import React, { useContext,useRef } from "react";
 import { useForm } from "react-hook-form";
 import { StoreContext } from "../../context/Context";
-
+import toast from "react-hot-toast";
+import axios from "axios";
 export default function OrderContent() {
-  const { getTotalAmount } = useContext(StoreContext);
+ 
+  const { getTotalAmount,url,token,list,cardItems} = useContext(StoreContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const Submit=async(data)=>{
+    console.log("data from the form after implement ref->",data);
+    const orderInfo={
+    name:data.name,
+    email:data.email,
+    city:data.city,
+    state:data.state,
+    street:data.street,
+    zipcode:data.zipcode,
+    country:data.country,
+    phonenumber:data.phonenumber,
+    }
+    const orderItems=[]; //we need order detail so we add the iteminfo with  key quantity from the carditemsand make it orderItems array
+     list.map((item)=>{  //we find the the no. of item from the cardItems 
+        if(cardItems[item._id]>0){
+          let itemInfo=item;
+          itemInfo["quantity"]=cardItems[item._id];
+          orderItems.push(itemInfo);
+        }
+        console.log(orderItems);
+     })
+     //now we have to pass the order data to the route
+     let orderData={
+      address:orderInfo, //it store the user info
+      items:orderItems,   //it sore the items details that the user order
+      amount:getTotalAmount()+2,
+     }
+     let res=await axios.post(url+'/order/place',orderData,{headers:{token}});
+     if(res.data.success){
+      const {session_url}=res.data;
+      window.location.replace(session_url);
+      toast.success("process complete");
+     }
+     else{
+      toast.error("error,Ensure you are Logged In!");
+     }
+  }
 
   return (
     <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
       <div className="mt-28 space-y-8">
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-8 w-full">
           {/* Delivery Information Form */}
           <div className="w-full md:w-1/2  p-6 ">
-            <form>
+          <form onSubmit={handleSubmit(Submit)}>
               <div className="text-center mb-4">
                 <h1 className="font-bold text-4xl">Delivery Information</h1>
               </div>
@@ -86,9 +125,9 @@ export default function OrderContent() {
                       type="number"
                       placeholder="Enter Zip Code"
                       className="w-full p-2 border border-gray-300 rounded"
-                      {...register("zip", { required: true })}
+                      {...register("zipcode", { required: true })}
                     />
-                    {errors.zip && <p className="text-red-600 mt-1">This field is required</p>}
+                    {errors.zipcode && <p className="text-red-600 mt-1">This field is required</p>}
                   </div>
                   <div className="w-full">
                     <label className="block mb-2 font-medium">Country</label>
@@ -108,14 +147,17 @@ export default function OrderContent() {
                     type="number"
                     placeholder="Enter Phone Number"
                     className="w-full p-2 border border-gray-300 rounded"
-                    {...register("phone", { required: true })}
+                    {...register("phonenumber", { required: true })}
                   />
-                  {errors.phone && <p className="text-red-600 mt-1">This field is required</p>}
+                  {errors.phonenumber && <p className="text-red-600 mt-1">This field is required</p>}
                 </div>
               </div>
-            </form>
-          </div>
-
+              <div className="text-center">
+              <button className="btn btn-primary px-6 py-2 rounded">Proceed to Payment</button>
+            </div>
+             </form>
+          </div>  
+         
           {/* Card Totals */}
           <div className="w-full md:w-1/2 space-y-6 p-6 ">
             <div>
@@ -134,10 +176,9 @@ export default function OrderContent() {
               <h2>Total Amount</h2>
               <h2>${getTotalAmount() ==0?0:getTotalAmount() + 2}</h2>
             </div>
-            <div className="text-center">
-              <button className="btn btn-primary px-6 py-2 rounded">Proceed to Payment</button>
-            </div>
+           
           </div>
+        
         </div>
       </div>
     </div>

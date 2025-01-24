@@ -7,7 +7,7 @@ import Menu from "./pages/Menu/Menu";
 import Signup from "./components/Signup";
 import {Toaster} from "react-hot-toast";
 import Verify from "./pages/Verify/Verify";
-import Myorder from "./pages/myorders/myorder";
+import Myorder from "./pages/myorders/Myorder";
 export default function App() {
   return (<>
     <div>

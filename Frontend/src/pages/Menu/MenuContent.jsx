@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import menuList from "./menuList.json";
+ 
 import axios from "axios";
 import CardMenu from "./CardMenu";
 import { useState } from "react";

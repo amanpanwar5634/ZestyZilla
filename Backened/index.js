@@ -3,32 +3,46 @@ import cors from "cors";
 import { connectDb } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
-import  cartRoute from "./routes/cartRoute.js";
- 
-import 'dotenv/config.js'; //to acquire the .env file
+import cartRoute from "./routes/cartRoute.js";
+import 'dotenv/config.js'; // to acquire the .env file
 import orderRouter from "./routes/orderRoute.js";
-//config
-const app=express();
-const port =4000;
-//middleware
+import path from 'path';
+
+// Config
+const app = express();
+const port = 4000;
+
+// Middleware
 app.use(express.json());
 app.use(cors());
-//connection db
+
+// Connection to the database
 connectDb();
 
-//api endpoint
-app.use("/food",foodRouter);
-app.use("/user",userRouter);
-app.use("/cart",cartRoute);
-app.use("/order",orderRouter);
-//to access images in browser
-app.use("/images",express.static("uploads"));
+// API endpoints
+app.use("/food", foodRouter);
+app.use("/user", userRouter);
+app.use("/cart", cartRoute);
+app.use("/order", orderRouter);
 
-//route
-app.get("/",(req,res)=>{
-    res.send("api working");
-})
-app.listen(port,()=>{
-    console.log("app is listening on port");
-})
-//mongodb+srv://amanpanwar123op:<db_password>@cluster0.ni6ue.mongodb.net/?
+// Serve images (if needed)
+app.use("/images", express.static("uploads"));
+
+// Serve static files from the React/Vite build directory
+// For Vite, the output directory is usually `dist`
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Fallback for React Router: Serve index.html for any non-API route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Make sure this matches your build folder
+});
+
+// Test route
+app.get("/", (req, res) => {
+  res.send("API is working");
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}`);
+});

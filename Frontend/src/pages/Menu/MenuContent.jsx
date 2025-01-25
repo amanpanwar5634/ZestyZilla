@@ -1,8 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import menuList from "./menuList.json";
-import axios from "axios";
 import CardMenu from "./CardMenu";
-import { useState } from "react";
 import { StoreContext } from "../../context/Context";
 export default function MenuContent(){
    const {list,setlsit}=useContext(StoreContext);  //the concept of list fecthing n context

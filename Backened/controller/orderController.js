@@ -5,7 +5,7 @@ import orderModel from "../models/orderModel.js";
 //placing user order for frontend
 const stripe=new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrder=async(req,res)=>{
-    const frontend_url="http://localhost:5175";
+    const frontend_url="http://localhost:5173";
  try{ const newOrder=new orderModel({
     userId:req.body.userId,
     items:req.body.items,

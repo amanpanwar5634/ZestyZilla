@@ -7,10 +7,15 @@ import cartRoute from "./routes/cartRoute.js";
 import 'dotenv/config.js'; // to acquire the .env file
 import orderRouter from "./routes/orderRoute.js";
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Config
 const app = express();
 const port = 4000;
+
+// Get the directory name using import.meta.url
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(express.json());

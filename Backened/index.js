@@ -7,10 +7,13 @@ import  cartRoute from "./routes/cartRoute.js";
  
 import 'dotenv/config.js'; //to acquire the .env file
 import orderRouter from "./routes/orderRoute.js";
-//config
-const app=express();
-const port =4000;
-//middleware
+ 
+// Config
+const app = express();
+const port = 4000;
+
+ 
+// Middleware
 app.use(express.json());
 
 app.use(cors());
@@ -24,7 +27,7 @@ app.use("/cart",cartRoute);
 app.use("/order",orderRouter);
 //to access images in browser
 app.use("/images",express.static("uploads"));
-
+ 
 //route
 app.get("/",(req,res)=>{
     res.send("api working");
@@ -32,4 +35,5 @@ app.get("/",(req,res)=>{
 app.listen(port,()=>{
     console.log("app is listening on port");
 })
-//mongodb+srv://amanpanwar123op:<db_password>@cluster0.ni6ue.mongodb.net/?
+ 
+ 

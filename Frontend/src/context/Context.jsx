@@ -65,16 +65,18 @@ const TotalItem=()=>{
      }
      return totalItem;
 }
-const getTotalAmount=()=>{
-    let totalAmount=0;
-     for(const item in cardItems){
-        if(cardItems[item]>0){
-            let itemInfo=list.find((el)=>el._id===item);
-            totalAmount+=itemInfo.price * cardItems[item];
+const getTotalAmount = () => {
+    let totalAmount = 0;
+    for (const item in cardItems) {
+        if (cardItems[item] > 0) {
+            const itemInfo = list.find((el) => el._id === item);
+            if (itemInfo) {
+                totalAmount += itemInfo.price * cardItems[item];
+            }
         }
-     }
-     return totalAmount;
-}
+    }
+    return totalAmount;
+};
 const ContextValue={
     cardItems,setcardItems,addToCard,removeFromCart,getTotalAmount,TotalItem,token,settoken,url,list,setlist
 }

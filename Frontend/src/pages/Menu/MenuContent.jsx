@@ -1,4 +1,9 @@
 import React, { useContext, useEffect } from "react";
+<<<<<<< HEAD
+=======
+ 
+import axios from "axios";
+>>>>>>> 3ab83b285b6db124bb133650ae764381c04158ef
 import CardMenu from "./CardMenu";
 import { StoreContext } from "../../context/Context";
 export default function MenuContent(){

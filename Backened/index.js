@@ -33,13 +33,12 @@ app.use("/order", orderRouter);
 // Serve images (if needed)
 app.use("/images", express.static("uploads"));
 
-// Serve static files from the React/Vite build directory
-// For Vite, the output directory is usually `dist`
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files from the frontend build directory (make sure this folder exists)
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 // Fallback for React Router: Serve index.html for any non-API route
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html')); // Make sure this matches your build folder
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html')); // Ensure the correct path here
 });
 
 // Test route
